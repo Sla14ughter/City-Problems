@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+}
+
+.reg-n {
+    text-align: center;
+}
+
+.reg1 {
+    
+    margin: auto;
+    margin-top: 100px;
+    width: 560px;
+    height: 270px;
+}
+
+.Nss {
+    justify-content: space-between;
+    display: flex;
+    margin: 20px;
+
+}
+
+.Nss > p{
+    margin: auto 0;
+}
+
+.Nss input {
+    width: 400px;
+    height: 20px;
+}
