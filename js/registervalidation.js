@@ -4,11 +4,15 @@ const logininput = document.getElementById('login');
 const pwdinput = document.getElementById('pass');
 const pwdcheck = document.getElementById('ppass');
 regbtn.addEventListener('click', function (event) {
-	if(fioinput.validity.patternMismatch)
+	if (fioinput.validity.valueMissing)
+		fioinput.setCustomValidity("Заполинте это поле"); 
+	else if(fioinput.validity.patternMismatch)
 		fioinput.setCustomValidity("Введите фамилию, имя и отчество с заглавной буквы через пробел");
 	else
 		fioinput.setCustomValidity("");
-	if(logininput.validity.patternMismatch)
+	if (logininput.validity.valueMissing) 
+		logininput.validity.setCustomValidity("Заполните это поле");
+	else if(logininput.validity.patternMismatch)
 		logininput.setCustomValidity("Разрешены только латинские буквы");
 	else if (logininput.validity.tooShort)
 		logininput.setCustomValidity("Логин должен содержать не менее трёх символов");
@@ -19,3 +23,4 @@ regbtn.addEventListener('click', function (event) {
 	else
 		pwdinput.setCustomValidity("");
 });
+fioinput.addEventListener('change', function(event) {event.preventDefault();});
