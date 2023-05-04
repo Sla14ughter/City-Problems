@@ -4,13 +4,13 @@ const pwdinput = document.getElementById('pass');
 
 regbtn.addEventListener('click', function (event) {
 	if(get_cookie('error') == 'errorlog'){
-		logininput.validity.setCustomValidity("Пользователя с такм логином не существует");
+		logininput.setCustomValidity("Пользователя с такм логином не существует");
 	}else if(get_cookie('error') == 'errorpass'){
-		pwdinput.validity.setCustomValidity("Неправильно введен пароль");
+		pwdinput.setCustomValidity("Неправильно введен пароль");
 	}
 	else{
 		if (logininput.validity.valueMissing) 
-			logininput.validity.setCustomValidity("Заполните это поле");
+			logininput.setCustomValidity("Заполните это поле");
 		else if(logininput.validity.patternMismatch)
 			logininput.setCustomValidity("Разрешены только латинские буквы");
 		else if (logininput.validity.tooShort)

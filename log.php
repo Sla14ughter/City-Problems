@@ -1,13 +1,12 @@
 <?php
 require_once "db.php";
 $stmt = $pdo->prepare("select * from user where userlogin = ?"); 
-$stmt->execute([
-  $_POST['login'] 
-]);
+$stmt->execute([$_POST['login']]);
 if($stmt->rowCount() == 0) {
   header("Location: login.html");
   setcookie('error', 'errorlog', time() + 1);
-}else{
+}
+else {
   $array = $stmt->fetchAll();
   $password = $array[0]['password'];
   $passcheck = hash("sha256", $_POST['pass'], false);
