@@ -1,3 +1,9 @@
+<?php
+require_once "db.php";
+$stmt = $pdo->query("select * from category");
+$category = $stmt->fetchAll();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,20 +16,21 @@
   <body>
     <div class="container">
       <div class="form-wrapper">
-        <form action="reg.php" method="POST">
+        <form action="addrequest.php" method="POST">
           <div class="register">
             <p>Название:</p>
-            <input type="text" class="input" name="fio" id="fio" required />
+            <input type="text" class="input" name="title" id="title" required />
           </div>
           <div class="register">
             <p>Фото:</p>
-            <input type="file" name="img" id="img" class="custom-file-input" />
+            <input type="file" name="img" id="img" class="custom-file-input" required/>
           </div>
           <div class="register">
             <p>Категория:</p>
-            <select name="category" id="category">
-              <option value="val">Ремонт дорог</option>
-              <option value="val1">Категория 2</option>
+            <select name="category" id="category" required>
+              <?php foreach($category as $cat): ?>
+                <option value = "<?= $cat['categoryid'] ?>"><?= $cat['name'] ?></option>
+              <?php endforeach?>
             </select>
           </div>
           <div class="register">
