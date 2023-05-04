@@ -4,6 +4,7 @@ const fioinput = document.getElementById('fio');
 const logininput = document.getElementById('login');
 const pwdinput = document.getElementById('pass');
 const pwdcheck = document.getElementById('ppass');
+const mailinput = document.getElementById('mail');
 let xhr = new XMLHttpRequest();
 regform.addEventListener('submit', function (event) {
 	event.preventDefault();
@@ -18,36 +19,40 @@ regform.addEventListener('submit', function (event) {
 	else
 		pwdinput.setCustomValidity("");
 	xhr = new XMLHttpRequest();
-	let url = "checklogin.php?login=" + encodeURIComponent(logininput.value);
-	xhr.open('GET', url, true);
+	xhr.open('GET', getURL(), true);
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
 			let response = JSON.parse(xhr.responseText);
-			if(response.loginexists) {
+			if(response.loginexists)
 				logininput.setCustomValidity("Логин уже занят");
-			}
 			else if (logininput.validity.valueMissing) 
 				logininput.validity.setCustomValidity("Заполните это поле");
 			else if(logininput.validity.patternMismatch)
 				logininput.setCustomValidity("Разрешены только латинские буквы");
 			else if (logininput.validity.tooShort)
 				logininput.setCustomValidity("Логин должен содержать не менее трёх символов");
-			else {
+			else
 				logininput.setCustomValidity("");
+			if (response.mailexists)
+				mailinput.setCustomValidity("Email уже занят");
+			else
+				mailinput.setCustomValidity("");
+			if (regform.reportValidity())
 				regform.submit();
-			}
-			regform.reportValidity();
 		}
 	};
 	xhr.send();
 });
-regbtn.addEventListener('click', function (event) { 
-	if (xhr != undefined) {
-		let url = "checklogin.php?login=" + encodeURIComponent(logininput.value);
-		xhr.open('GET', url, true);
+regbtn.addEventListener('click', function () { 
+	if (xhr != null) { // на случай, если форма по каким-то причинам не срабатывает regform.submit
+		xhr.open('GET', getURL(), true);
 		xhr.send();
 	}
 });
+function getURL() 
+{ 
+	return "checklogin.php?login=" + encodeURIComponent(logininput.value) + "&email=" + encodeURIComponent(mailinput.value);
+}
 
 fioinput.addEventListener('change', function(event) {event.preventDefault();});
 
