@@ -14,6 +14,7 @@ else {
   $name = $user['lastname']." ".substr($user['firstname'], 0, 1).". ".substr($user['patronymic'], 0, 1)." .";
   if($password == $passcheck){
     setcookie('name', $name);
+    setcookie('login', $_POST['login']);
     setcookie('error', '', time() - 1);
     header("Location: index.html"); 
   }else{
