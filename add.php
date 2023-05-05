@@ -16,7 +16,7 @@ $category = $stmt->fetchAll();
   <body>
     <div class="container">
       <div class="form-wrapper">
-        <form action="addrequest.php" method="POST">
+        <form action="addrequest.php" method="POST" enctype="multipart/form-data">
           <div class="register">
             <p>Название:</p>
             <input type="text" class="input" name="title" id="title" required />
