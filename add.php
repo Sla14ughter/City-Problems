@@ -48,7 +48,7 @@ $category = $stmt->fetchAll();
             Отправить
           </button>
         </form>
-        <a href="index.html"><button class="otm">Отмена</button></a>
+        <a href="index.php"><button class="otm">Отмена</button></a>
       </div>
     </div>
     <script src="js/counter.js"></script>

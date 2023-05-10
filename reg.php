@@ -11,5 +11,5 @@ $stmt->execute([
   $f_i_o[2], 
   $_POST['mail']
 ]); 
-header("Location: index.html");
+header("Location: mypage.html");
 ?>
