@@ -2,8 +2,8 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Хост: 192.168.0.106:3306
--- Время создания: Апр 27 2023 г., 07:22
+-- Хост: 127.0.0.1:3306
+-- Время создания: Май 11 2023 г., 21:27
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.1.9
 
@@ -31,8 +31,16 @@ USE `city`;
 
 CREATE TABLE `category` (
   `categoryid` int UNSIGNED NOT NULL,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `category`
+--
+
+INSERT INTO `category` (`categoryid`, `name`) VALUES
+(1, 'Ремонт дорог'),
+(2, 'Уборка мусора');
 
 -- --------------------------------------------------------
 
@@ -42,11 +50,12 @@ CREATE TABLE `category` (
 
 CREATE TABLE `request` (
   `requestid` int UNSIGNED NOT NULL,
-  `userlogin` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `userlogin` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `categoryid` int UNSIGNED NOT NULL,
-  `statusid` int UNSIGNED NOT NULL,
-  `description` varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `photo` longblob NOT NULL,
+  `statusid` int UNSIGNED NOT NULL DEFAULT '1',
+  `description` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `photo` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -58,7 +67,7 @@ CREATE TABLE `request` (
 
 CREATE TABLE `role` (
   `roleid` int UNSIGNED NOT NULL,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -77,8 +86,17 @@ INSERT INTO `role` (`roleid`, `name`) VALUES
 
 CREATE TABLE `status` (
   `statusid` int UNSIGNED NOT NULL,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `status`
+--
+
+INSERT INTO `status` (`statusid`, `name`) VALUES
+(1, 'Новая'),
+(3, 'Отклонена'),
+(2, 'Решена');
 
 -- --------------------------------------------------------
 
@@ -87,14 +105,22 @@ CREATE TABLE `status` (
 --
 
 CREATE TABLE `user` (
-  `userlogin` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `userlogin` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `roleid` int UNSIGNED NOT NULL DEFAULT '1',
-  `firstname` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lastname` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `patronymic` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
+  `firstname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lastname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `patronymic` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `user`
+--
+
+INSERT INTO `user` (`userlogin`, `password`, `roleid`, `firstname`, `lastname`, `patronymic`, `email`) VALUES
+('Aboba', 'a6c79a27049109e472b246b5dfbe08aedff1e9e2259597e54032dbad4958d4ad', 1, 'Абоба', 'Абобов', 'Абобович', 'aboba@mail.ru'),
+('admin', 'e1634645bad70792323ec614709e205cbf70c1ec586ca8262b431b75f3191c2b', 2, 'Алекслав', 'Горторган', 'Алерьевич', 'vyacheksandr@mail.ru');
 
 --
 -- Индексы сохранённых таблиц
@@ -145,13 +171,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT для таблицы `category`
 --
 ALTER TABLE `category`
-  MODIFY `categoryid` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `categoryid` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `request`
 --
 ALTER TABLE `request`
-  MODIFY `requestid` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `requestid` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT для таблицы `role`
@@ -163,7 +189,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT для таблицы `status`
 --
 ALTER TABLE `status`
-  MODIFY `statusid` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `statusid` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
