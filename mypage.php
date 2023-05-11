@@ -56,7 +56,7 @@ $requests = $stmt->fetchAll();
                 <li><a href="add.php">Новая заявка</a></li>
                 <?php if (isset($_COOKIE["role"])):?>
                 <li><a href="admin/index.php">Панель администратора</a></li>
-                <li><a href="admin/addcategory.php">Новая категория</a></li>
+                <li><a href="admin/addcategory.html">Новая категория</a></li>
                 <?php endif?>
                 <li role="separator" class="divider"></li>
                 <li><a href="exit.php">Выход</a></li>
