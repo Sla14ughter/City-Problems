@@ -58,8 +58,14 @@ $requests = $stmt->fetchAll();
                 <span class="caret"></span
               ></a>
               <ul class="dropdown-menu">
+                <?php if (isset($_COOKIE["role"])):?>
+                <li><a href="admin/index.php">Панель администратора</a></li>
+                <?php endif?>
                 <li><a href="mypage.php">Мои заявки</a></li>
                 <li><a href="add.php">Новая заявка</a></li>
+                <?php if (isset($_COOKIE["role"])):?>
+                <li><a href="admin/addcategory.html">Новая категория</a></li>
+                <?php endif?>
                 <li role="separator" class="divider"></li>
                 <li><a href="exit.php">Выход</a></li>
               </ul>

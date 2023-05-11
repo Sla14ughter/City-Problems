@@ -11,5 +11,8 @@ $stmt->execute([
   $f_i_o[2], 
   $_POST['mail']
 ]); 
-header("Location: mypage.html");
+$name = $f_i_o[0]." ".mb_substr($f_i_o[1], 0, 1).". ".mb_substr($f_i_o[2], 0, 1).".";
+setcookie('name', $name);
+setcookie('login', $_POST['login']);
+header("Location: mypage.php");
 ?>

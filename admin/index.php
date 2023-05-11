@@ -1,3 +1,11 @@
+<?php
+require "../db.php";
+$stmt = $pdo->query("select r.statusid as done, requestid, photo, title, description, c.name as categoryname, 
+s.name as statusname, timestamp from request r join status s on r.statusid = s.statusid 
+join category c on r.categoryid = c.categoryid where r.statusid = 1 order by timestamp desc"); 
+$requests = $stmt->fetchAll();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -40,11 +48,13 @@
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Иванов И.И.
+                <?php if (isset($_COOKIE["name"])):?><?=$_COOKIE["name"]?><?php endif?>
                 <span class="caret"></span
               ></a>
               <ul class="dropdown-menu">
-                <li><a href="add.html">Новая заявка</a></li>
+                <li><a href="../mypage.php">Мои заявки</a></li>
+                <li><a href="../add.php">Новая заявка</a></li>
+                <li><a href="addcategory.html">Новая категория</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="index.php">Выход</a></li>
               </ul>
@@ -58,105 +68,22 @@
     <div class="container graybg">
       <h1>Заявки</h1>
       <div class="cards">
+      <?php foreach($requests as $request):?>
         <div class="card">
-          <img class="pic" src="../img/problem2.png" alt="" />
-          <h2>Яма на дороге</h2>
-          <p>
-            Что за хуйня? Ёбаные соседи сверху набухались и скинули гирю с
-            балкона прямо на дорогу! Теперь тут огромная дыра!!1!1 Заделайте уже
-            её нахуй.
-          </p>
-          <p>Категория: Ремонт дорог</p>
-          <p>
-            Статус заявки:
-            <select name="status" id="status">
-              <option value="1">Новая</option>
-              <option value="2">Решена</option>
-              <option value="3">Отклонена</option>
-            </select>
-          </p>
-          <a href="remove.php?id=value" class="updbtn">Обновить статус</a>
-          <span class="timestamp">27.04.2023 9:00</span>
+          <img class="pic" src="../<?=$request['photo']?>" alt="" />
+          <h2><?=$request['title']?></h2>
+          <p><?=$request['description']?></p>
+          <p>Категория: <?=$request['categoryname']?></p>
+          <p>Статус: <?=$request['statusname']?></p>
+          <?php if ($request["done"] == 1):?>
+          <div class="buttons">
+            <a href="solve.php?id=<?=$request['requestid']?>" class="green btnn inside">Решена</a>
+            <a href="decline.php?id=<?=$request['requestid']?>" class="red down btnn inside">Отклонена</a>
+          </div>
+          <?php endif?>
+          <span class="timestamp"><?=$request['timestamp']?></span>
         </div>
-        <div class="card">
-          <img class="pic" src="../img/problem2.png" alt="" />
-          <h2>Яма на дороге</h2>
-          <p>
-            Что за хуйня? Ёбаные соседи сверху набухались и скинули гирю с
-            балкона прямо на дорогу! Теперь тут огромная дыра!!1!1 Заделайте уже
-            её нахуй.
-          </p>
-          <p>Категория: Ремонт дорог</p>
-          <p>
-            Статус заявки:
-            <select name="status" id="status">
-              <option value="1">Новая</option>
-              <option value="2">Решена</option>
-              <option value="3">Отклонена</option>
-            </select>
-          </p>
-          <a href="remove.php?id=value" class="updbtn">Обновить статус</a>
-          <span class="timestamp">27.04.2023 9:00</span>
-        </div>
-        <div class="card">
-          <img class="pic" src="../img/problem2.png" alt="" />
-          <h2>Яма на дороге</h2>
-          <p>
-            Что за хуйня? Ёбаные соседи сверху набухались и скинули гирю с
-            балкона прямо на дорогу! Теперь тут огромная дыра!!1!1 Заделайте уже
-            её нахуй.
-          </p>
-          <p>Категория: Ремонт дорог</p>
-          <p>
-            Статус заявки:
-            <select name="status" id="status">
-              <option value="1">Новая</option>
-              <option value="2">Решена</option>
-              <option value="3">Отклонена</option>
-            </select>
-          </p>
-          <a href="remove.php?id=value" class="updbtn">Обновить статус</a>
-          <span class="timestamp">27.04.2023 9:00</span>
-        </div>
-        <div class="card">
-          <img class="pic" src="../img/GoToPitRoad2.jpg" alt="" />
-          <h2>Яма на дороге</h2>
-          <p>
-            ААААА БЛЯТЬ КРОКОДИЛ В ЯМЕ НАХУЙ!!1!11! АААА СПАСИТЕ ОН МЕНЯ ЩАС
-            СОЖРЁТ!1!!1!
-          </p>
-          <p>Категория: Ремонт дорог</p>
-          <p>
-            Статус заявки:
-            <select name="status" id="status">
-              <option value="1">Новая</option>
-              <option value="2">Решена</option>
-              <option value="3">Отклонена</option>
-            </select>
-          </p>
-          <a href="remove.php?id=value" class="updbtn">Обновить статус</a>
-          <span class="timestamp">27.04.2023 9:00</span>
-        </div>
-        <div class="card">
-          <img class="pic" src="../img/problem2.png" alt="" />
-          <h2>Яма на дороге</h2>
-          <p>
-            Что за хуйня? Ёбаные соседи сверху набухались и скинули гирю с
-            балкона прямо на дорогу! Теперь тут огромная дыра!!1!1 Заделайте уже
-            её нахуй.
-          </p>
-          <p>Категория: Ремонт дорог</p>
-          <p>
-            Статус заявки:
-            <select name="status" id="status">
-              <option value="1">Новая</option>
-              <option value="2">Решена</option>
-              <option value="3">Отклонена</option>
-            </select>
-          </p>
-          <a href="remove.php?id=value" class="updbtn">Обновить статус</a>
-          <span class="timestamp">27.04.2023 9:00</span>
-        </div>
+        <?php endforeach;?>
       </div>
     </div>
     <script src="../js/jquery-3.3.1.min.js"></script>

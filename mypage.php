@@ -54,6 +54,10 @@ $requests = $stmt->fetchAll();
               ></a>
               <ul class="dropdown-menu">
                 <li><a href="add.php">Новая заявка</a></li>
+                <?php if (isset($_COOKIE["role"])):?>
+                <li><a href="admin/index.php">Панель администратора</a></li>
+                <li><a href="admin/addcategory.php">Новая категория</a></li>
+                <?php endif?>
                 <li role="separator" class="divider"></li>
                 <li><a href="exit.php">Выход</a></li>
               </ul>
@@ -75,7 +79,7 @@ $requests = $stmt->fetchAll();
           <p><?=$request['description']?></p>
           <p>Категория: <?=$request['categoryname']?></p>
           <p>Статус: <?=$request['statusname']?></p>
-          <a href="#" id="<?=$request['requestid']?>" class="delbtn" >Удалить заявку</a>
+          <a href="#" id="<?=$request['requestid']?>" class="red btnn" >Удалить заявку</a>
           <span class="timestamp"><?=$request['timestamp']?></span>
         </div>
         <?php endforeach;?>
