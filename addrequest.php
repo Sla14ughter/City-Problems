@@ -13,5 +13,5 @@ $stmt->execute([
   $_POST['description'], 
   $filepath
 ]); 
-header("Location: index.php");
+header("Location: mypage.php");
 ?>

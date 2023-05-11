@@ -75,7 +75,7 @@ $requests = $stmt->fetchAll();
           <p><?=$request['description']?></p>
           <p>Категория: <?=$request['categoryname']?></p>
           <p>Статус: <?=$request['statusname']?></p>
-          <a href="remove.php?id=<?=$request['requestid']?>" class="delbtn">Удалить заявку</a>
+          <a href="#" id="<?=$request['requestid']?>" class="delbtn" >Удалить заявку</a>
           <span class="timestamp"><?=$request['timestamp']?></span>
         </div>
         <?php endforeach;?>
